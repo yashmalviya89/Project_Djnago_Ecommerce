@@ -1,0 +1,111 @@
+
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Customer Registration{% endblock title %}
+{% block main-content %}
+<div class="container">
+ <div class="row my-3">
+  <div class="col-sm-6 offset-sm-3">
+   <h3>Customer Registration</h3>
+   <hr>
+
+   <form action="" method="post" novalidate class="shadow p-5">
+      
+
+   {% if messages %}
+      {% for message in messages %}
+         <p {% if message.tags %} class="alert alert-{{message.tags}} mb" {% endif %} >{{message}}</p>
+      {% endfor %}
+   {% endif %}
+  
+      {% comment %} this is from usercreation class from django model form{% endcomment %}
+      {% comment %} {{form}} {% endcomment %}
+      {% csrf_token %}
+      {% for form in form %}
+         <div class="foem-group mb-3">
+            {{form.label_tag}} {{form}} <small class="text-danger">{{form.errors | striptags}}</small>
+         </div>
+      {% endfor %}
+      <input type="submit" value="Submit" class="btn btn-primary">
+      <br>
+      <div class="text-center text-primary fw-bold"><small>Existing User ? <a href="{% url 'login' %}" class="text-danger">Login Now</a> </small><div>
+
+      {% if form.non_field_errors %}
+         {% for error in form.non_field_errors %}
+         <p class="alert alert-danger my-3">{{error}}</p>
+         {% endfor %}
+      {% endif %}
+
+   </form>
+  </div>
+ </div>
+</div>
+{% endblock main-content %}
+
+
+
+
+{% comment %} 
+
+
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Customer Registration{% endblock title %}
+{% block main-content %}
+<div class="container">
+ <div class="row my-3">
+  <div class="col-sm-6 offset-sm-3">
+   <h3>Customer Registration</h3>
+   <hr>
+
+</div>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+   
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }}">
+    {{ message }}
+</div>
+{% endfor %}
+{% endif %}
+
+    <div class="form-group">
+        <label for="username">First Name</label>
+        <input type="text" class="form-control"name="first_name" id="first-name" placeholder="Enter your First Name" required>
+    </div>
+    <div class="form-group">
+        <label for="username">Last Name</label>
+        <input type="text" class="form-control" name="last_name" id="last-name" placeholder="Enter your Last Name" required>
+    </div>
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" name="username" id="username" placeholder="Enter your username" required>
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email" required>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password" required>
+    </div>
+    <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" class="form-control" name="confirm_password" id="confirmPassword" placeholder="Confirm your password" required>
+    </div>
+    <p> Already have account <a href="/login/">Login</a></p>
+
+    <button type="submit" class="btn btn-primary btn-block">Register</button>
+</form>
+</div>
+
+  </div>
+ </div>
+</div>
+{% endblock main-content %}
+
+ {% endcomment %}
+
+

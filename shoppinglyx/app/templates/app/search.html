@@ -1,0 +1,36 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}Search Result{% endblock title %}
+
+{% block main-content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Search Result</h2>
+            {% if no_results %}
+                <div class="alert alert-warning" role="alert">
+                    No search results found for "<strong>{{ query }}</strong>".
+                    <br>Please try different keywords or refine your search.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        {% for product in allproducts %}
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card">
+                <a href="{% url 'product-detail' product.id %}">
+                    <img src="{{ product.product_image.url }}" alt="{{ product.title }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.title }}</h5>
+                    <p class="card-text">{{ product.description }}</p>
+                    <p class="card-text">Rs. {{ product.discounted_price }} <small class="fw-light text-decoration-line-through">{{ product.selling_price }}</small></p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock main-content %}

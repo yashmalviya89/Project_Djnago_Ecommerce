@@ -1,0 +1,91 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Login{% endblock title %}
+{% block main-content %}
+<div class="container">
+ <div class="row my-3">
+  <div class="col-sm-6 offset-sm-3">
+   <h3>Login</h3>
+   <hr>
+   <form action="" method="post" novalidate class="shadow p-5">
+    
+   {% if messages %}
+   {% for message in messages %}
+      <p {% if message.tags %} class="alert alert-{{message.tags}} mb" {% endif %} >{{message}}</p>
+   {% endfor %}
+{% endif %}
+
+   {% comment %} this is from usercreation class from django model form{% endcomment %}
+   {% comment %} {{form}} {% endcomment %}
+   {% csrf_token %}
+   {% for form in form %}
+      <div class="form-group mb-3">
+         {{form.label_tag}} {{form}} <small class="text-danger">{{form.errors | striptags}}</small>
+      </div>
+   {% endfor %}
+   <small><a href="{% url 'password_reset' %}">Forgot Password ?</a></small> <br>
+   <input type="submit" value="Login" class="btn btn-primary mt-4">
+   <br>
+   <div class="text-center text-primary fw-bold"><small>New to YashMart ? <a href="{% url 'customerregistration' %}" class="text-danger">Create an Account</a> </small><div>
+
+   {% if form.non_field_errors %}
+      {% for error in form.non_field_errors %}
+      <p class="alert alert-danger my-3">{{error}}</p>
+      {% endfor %}
+   {% endif %}
+   </form>
+   <hr>
+   <!-- Social Auth Buttons -->
+   <div class="text-center">
+      <a href="{% url 'social:begin' 'facebook' %}" class="btn btn-primary"><i class="fab fa-facebook-f"></i> Login with Facebook</a>
+      {% comment %} <a href="{% url 'social:begin' 'twitter' %}" class="btn btn-info"><i class="fab fa-twitter"></i> Login with Twitter</a> {% endcomment %}
+      <a href="{% url 'social:begin' 'github' %}" class="btn btn-warning"><i class="fab fa-github"></i> Login with Github</a>
+      <!-- Add more social login buttons as needed -->
+   </div>
+  </div>
+ </div>
+</div>
+{% endblock main-content %}
+
+
+
+
+
+{% comment %} {% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Login{% endblock title %}
+{% block main-content %}
+<div class="container">
+ <div class="row my-3">
+  <div class="col-sm-6 offset-sm-3">
+   <h3>Login</h3>
+   <hr>
+</div>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+  {% if messages %}
+    <div class="alert alert-sucess" role="alert">
+         {% for message in messages %}
+         {{ message }}
+         {% endfor %}
+
+   </div>
+ 
+{% endif %}           
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" name="username" id="username" placeholder="Enter your username" required>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password" required>
+    </div>
+    <p> Don't have account <a href="/registration/">Register</a></p>
+    <button type="submit" class="btn btn-primary btn-block">Login</button>
+</form>
+</div>
+  </div>
+ </div>
+</div>
+{% endblock main-content %} {% endcomment %}
